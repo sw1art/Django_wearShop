@@ -46,7 +46,7 @@ class RegisterForm(UserCreationForm):
         fields = ('first_name', 'last_name', 'username', 'email', 'password1', 'password2')
 
 
-class UserProfile(UserChangeForm):
+class ProfileForm(UserChangeForm):
     first_name = forms.CharField(widget=forms.TextInput(attrs={
         'class': 'form-control py-4',
     }))
@@ -56,14 +56,12 @@ class UserProfile(UserChangeForm):
     birthday = forms.DateField(widget=forms.DateInput(attrs={
         'class': 'form-control py-4',
         'type': 'date'
-    }))
-    gender = forms.ChoiceField(choices=GENDER_CHOICES, widget=forms.Select(attrs={
-        'class': 'form-control py-4',
-        'type': 'select',
-    }))
+    }), required=False)
+    gender = forms.ChoiceField(choices=GENDER_CHOICES)
     image = forms.ImageField(widget=forms.FileInput(attrs={
         'class': 'custom-file-label',
-    }))
+        'readonly': True,
+    }), required=False, initial='M')
     username = forms.CharField(widget=forms.TextInput(attrs={
         'class': 'form-control py-4',
         'readonly': True,
